@@ -16,10 +16,10 @@ import com.sanjana.springboot_beginner.services.UserService;
 @RestController
 @RequestMapping("/api/users")
 
-public class UseController {
+public class UserController {
     private UserService userService;
     
-     public UseController(UserService userService) {
+     public UserController(UserService userService) {
         this.userService = userService;
      }
      
@@ -28,6 +28,16 @@ public class UseController {
      public List<User> getAllUsers() {
         return userService.getAllUsers();
      }
+      @GetMapping
+     public ResponseEntity<User> myRandomUser() {
+       User temp= userService.myRandomUser();
+        if (temp != null) {
+            return ResponseEntity.ok(temp);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+     }
+
 
      @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
